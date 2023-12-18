@@ -1,0 +1,256 @@
+*{
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+.header{
+    text-align: center;
+    padding-top: 14px;
+    color: green;
+}
+
+.title{
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.title-input{
+    margin-bottom: 3px;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.3px;
+    font-weight: 700;
+}
+
+.line{
+    background-color: rgb(189, 179, 179);
+    height: 1px;
+    margin-top: 14px;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 3em;
+}
+
+.section-input{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    margin:  auto;
+    width: 30em;
+    border: 2px solid rgb(189, 179, 179);
+    padding: 1em 2em;
+}
+
+.value,
+.fees-temp,
+.signal-input{
+    display: flex;
+}
+
+.signal-input{
+    width: 14.6em;
+}
+
+.signal,
+.signal-percent{
+    background-color: greenyellow;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
+}
+
+.signal{
+    padding: 4px 6px;
+    border: 1px solid rgb(189, 179, 179);
+    font-size: 14px;
+}
+
+.signal-percent{
+    padding: 2px 9px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(189, 179, 179);
+    font-size: 16px;
+}
+
+.input-text{
+    width: 14em;
+    padding: 4px 6px;
+    border-top: 1px solid rgb(189, 179, 179);
+    border-right: 1px solid rgb(189, 179, 179);
+    border-bottom: 1px solid rgb(189, 179, 179);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.value,
+.fees-temp{
+    display: grid;
+    grid-template-columns: 16em 15em;
+}
+
+.input-text-temp,
+.input-text-fees{
+    padding: 4px 6px;
+    border-top: 1px solid rgb(189, 179, 179);
+    border-bottom: 1px solid rgb(189, 179, 179);
+}
+
+.input-text-fees{
+    width: 8.8em;
+}
+
+.input-text-temp{
+    width: 11em;
+    border-left: 1px solid rgb(189, 179, 179);
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.select{
+    width: 5em;
+    height: 1.8em;
+    text-align: center;
+    font-size: 14px;
+    color: green;
+    border: 2px solid green;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    gap: 1px;
+    cursor: pointer;
+}
+
+select option {
+    font-size: 14px;
+}
+
+select option:hover{
+    color: green;
+}
+
+.input-select{
+    display: flex;
+}
+
+.button-calculate{
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    border: 2px solid rgb(189, 179, 179);
+    background-color: green;
+    width: 6em;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 10px 5em;
+    cursor: pointer;
+}
+
+.section-results{
+    display: flex;
+    flex-direction: column;
+}
+
+.title-table{
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: green;
+    text-align: center;
+    margin: 3em 0 1em;
+}
+
+.table{
+    border: 2px solid green;
+    border-radius: 4px;
+    width: 40em;
+    margin: 0 auto;
+}
+
+.classification,
+.results{
+    display: grid;
+    grid-template-columns: 20em 20em;
+}
+
+.classification{
+    background-color: green;
+    color: white;
+}
+
+.event{
+    border-right: 2px solid black;
+    padding: 6px;
+    margin-left: 4px;
+    font-size: 17px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.value-table{
+    padding: 6px 8px;
+    font-size: 17px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.total,
+.text-total{
+    border-right: 2px solid black;
+    padding: 3px;
+    margin-left: 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.total{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.text-total{
+    font-weight: 700;
+    color: green;
+    letter-spacing: 1px;
+}
+
+.total-value,
+.total-all{
+    padding: 6px 8px;
+    padding: 3px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.total-value{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.total-all{
+    color: green;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+
+.line-table{
+    height: 1px;
+    background-color: rgb(189, 179, 179);
+}
+
