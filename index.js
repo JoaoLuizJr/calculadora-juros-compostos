@@ -112,7 +112,6 @@ buttonCalculate.addEventListener('click', ()=>{
         totalFess = total - totalInvest;
 
     }else{
-        console.log('teste2');
         valueTemp = valueTemp * 12;
         depositMonthly = valueMonthly * valueTemp;
         totalInvest = valueInitial + depositMonthly;
@@ -123,8 +122,7 @@ buttonCalculate.addEventListener('click', ()=>{
             onlyFeesInitial = valueInitial * (valueFees/100);
             onlyFeesMonthly = depositMonthly * (valueFees/100);
             valueInitial = valueInitial + onlyFeesInitial;
-            depositMonthly = depositMonthly + onlyFeesMonthly; 
-            console.log(valueInitial);
+            depositMonthly = depositMonthly + onlyFeesMonthly;
         }
         total = valueInitial + depositMonthly;     
         totalFess = total - totalInvest; 
@@ -142,6 +140,12 @@ initial.addEventListener('input', function() {
 });
 
 monthly.addEventListener('input', function() {
+    if (this.value < 0) {
+        this.value = ''; // Define o valor como vazio se for um número negativo
+    }
+});
+
+temp.addEventListener('input', function() {
     if (this.value < 0) {
         this.value = ''; // Define o valor como vazio se for um número negativo
     }
