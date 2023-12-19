@@ -2,6 +2,7 @@ const initial = document.getElementById('initialValue');
 const monthly = document.getElementById('monthlyValue')
 const fees = document.getElementById('interestRate')
 const temp = document.getElementById('temp');
+const selectTemp = document.getElementById('selectTemp')
 const period = document.getElementById('period');
 const buttonCalculate = document.getElementById('buttonCalculate');
 const totalGainFees = document.getElementById('totalGainFees');
@@ -50,7 +51,7 @@ buttonCalculate.addEventListener('click', ()=>{
     let totalFess = 0
     let depositMonthly = 0;
     let onlyFeesInitial = 0;
-    let onlyFessMonthly = 0;
+    let onlyFeesMonthly = 0;
     let onlyValueMonthly = valueMonthly;
 
     if (isNaN(valueInitial)){
@@ -65,50 +66,69 @@ buttonCalculate.addEventListener('click', ()=>{
         sectionInput.style.display = 'block';
     }
 
-    if (period.value === 'months') {
-        depositMonthly = valueMonthly * valueTemp;
-        totalInvest = valueInitial + depositMonthly;
+    if (selectTemp.value === 'monthly') {
+        if (period.value === 'years') {
+            valueTemp = valueTemp * 12;
+            depositMonthly = valueMonthly * valueTemp;
+            totalInvest = valueInitial + depositMonthly;
+    
+            for(let cont = 0; cont < valueTemp; cont++) {
+                onlyFeesInitial = valueInitial * (valueFees/100);
+                valueInitial = valueInitial + onlyFeesInitial;
+    
+                if (cont > 0) {
+                    onlyFeesMonthly = valueMonthly * (valueFees/100);
+                    valueMonthly = onlyFeesMonthly + onlyValueMonthly + valueMonthly;   
+                }
+    
+                if (isNaN(valueMonthly)) {
+                    valueMonthly = 0;
+                }
+            }   
+            
+            total = valueMonthly + valueInitial;
+            totalFess = total - totalInvest;
+        }else{
+            console.log('teste1');
+            depositMonthly = valueMonthly * valueTemp;
+            totalInvest = valueInitial + depositMonthly;
 
-        for(let cont = 0; cont < valueTemp; cont++) {
-            onlyFeesInitial = valueInitial * (valueFees/100);
-            valueInitial = valueInitial + onlyFeesInitial;
+            for(let cont = 0; cont < valueTemp; cont++) {
+                onlyFeesInitial = valueInitial * (valueFees/100);
+                valueInitial = valueInitial + onlyFeesInitial;
 
-            if (cont > 0) {
-                onlyFessMonthly = valueMonthly * (valueFees/100);
-                valueMonthly = onlyFessMonthly + onlyValueMonthly + valueMonthly;     
-            }
+                if (cont > 0) {
+                    onlyFeesMonthly = valueMonthly * (valueFees/100);
+                    valueMonthly = onlyFeesMonthly + onlyValueMonthly + valueMonthly;     
+                }
 
-            if (isNaN(valueMonthly)) {
-                valueMonthly = 0;
+                if (isNaN(valueMonthly)) {
+                    valueMonthly = 0;
+                }
             }
         }
 
         total = valueMonthly + valueInitial;
         totalFess = total - totalInvest;
 
-    }else if (period.value === 'years') {
+    }else{
+        console.log('teste2');
         valueTemp = valueTemp * 12;
         depositMonthly = valueMonthly * valueTemp;
         totalInvest = valueInitial + depositMonthly;
-
-        for(let cont = 0; cont < valueTemp; cont++) {
+    
+        for(let cont = 1; cont <= valueTemp; cont++) {
+            cont = cont + 11;
+            
             onlyFeesInitial = valueInitial * (valueFees/100);
+            onlyFeesMonthly = depositMonthly * (valueFees/100);
             valueInitial = valueInitial + onlyFeesInitial;
-
-            if (cont > 0) {
-                onlyFessMonthly = valueMonthly * (valueFees/100);
-                valueMonthly = onlyFessMonthly + onlyValueMonthly + valueMonthly;   
-            }
-
-            if (isNaN(valueMonthly)) {
-                valueMonthly = 0;
-            }
-        }   
-        
-
-        total = valueMonthly + valueInitial;
-        totalFess = total - totalInvest;
-    } 
+            depositMonthly = depositMonthly + onlyFeesMonthly; 
+            console.log(valueInitial);
+        }
+        total = valueInitial + depositMonthly;     
+        totalFess = total - totalInvest; 
+    }
 
     totalGainFees.textContent =  'R$ '+ totalFess.toFixed(2);
     totalOnlyInvest.textContent = 'R$ '+ totalInvest.toFixed(2);
