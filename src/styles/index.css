@@ -17,12 +17,20 @@
     font-weight: 700;
 }
 
-.title-input{
-    margin-bottom: 3px;
-    font-size: 14px;
+.button-login{
+    position: fixed;
+    right: 1.5%;
+    top: 2.2%;
+    padding: 10px 2em;
+    color: white;
+    background-color: green;
+    cursor: pointer;
+    font-size: 16px;
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 0.3px;
     font-weight: 700;
+    border: 1px solid transparent;
+    border-radius: 8px;
 }
 
 .line{
@@ -36,6 +44,14 @@ main{
     flex-direction: column;
     justify-content: center;
     margin-top: 3em;
+}
+
+.title-input{
+    margin-bottom: 3px;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.3px;
+    font-weight: 700;
 }
 
 .section-input{

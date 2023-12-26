@@ -9,6 +9,7 @@ const totalGainFees = document.getElementById('totalGainFees');
 const totalOnlyInvest = document.getElementById('totalOnlyInvest');
 const totalInvestFess = document.getElementById('totalInvestFees');
 const sectionInput = document.getElementById('sectionInput');
+const buttonLogin = document.getElementById('buttonLogin');
 
 document.addEventListener('DOMContentLoaded', ()=> {
     const selectTemp = document.getElementById('selectTemp');
@@ -164,4 +165,8 @@ function validateFields() {
         buttonCalculate.style = "background-color: gray;"
         buttonCalculate.disabled = true;
     }
+}
+
+function redirectToLogin() {
+    window.location.href = 'login.html';
 }
