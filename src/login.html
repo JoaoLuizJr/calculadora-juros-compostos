@@ -10,6 +10,7 @@
     <body>
         <header class="header">
             <h1 class="title">Calculadora de Juros Compostos</h1>
+            <button onclick="redirectToRegister()" class="button-register">Cadastrar</button>
             <hr class="line">
         </header> 
 
@@ -19,19 +20,18 @@
 
                 <div class="subtitle-input">
                     <label for="email" class="subtitle-box">Email:</label>
-                    <input type="text" placeholder="" class="input-text" id="inputEmailCpf">
+                    <input type="text" placeholder="Digite seu e-mail" class="input-text" id="inputEmailCpf">
                 </div>
 
                 <div class="subtitle-input">
                     <label for="password" class="subtitle-box">Senha:</label>
-                    <input type="text" placeholder="" class="input-text" id="inputPassword">
+                    <input type="text" placeholder="Digite sua senha" class="input-text" id="inputPassword">
                 </div>
 
                 <button class="forgot-password">Esqueceu a senha?</button>
                 
                 <div class="buttons">
                     <button class="button-login">Entrar</button>
-                    <button onclick="redirectToRegister()" class="button-register">Registrar</button>
                     <button onclick="redirectToIndex()" class="button-back">Voltar</button>
                 </div>
             </section>

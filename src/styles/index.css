@@ -4,10 +4,15 @@
     padding: 0;
 }
 
+html{
+    background-color: greenyellow;
+}
+
 .header{
     text-align: center;
     padding-top: 14px;
     color: green;
+    background-color: white;
 }
 
 .title{
@@ -34,8 +39,8 @@
 }
 
 .line{
-    background-color: rgb(189, 179, 179);
-    height: 1px;
+    background-color: green;
+    height: 2px;
     margin-top: 14px;
 }
 
@@ -55,12 +60,13 @@ main{
 }
 
 .section-input{
+    background-color: white;
     display: flex;
     flex-direction: column;
     gap: 1.5em;
     margin:  auto;
     width: 30em;
-    border: 2px solid rgb(189, 179, 179);
+    border: 2px solid green;
     padding: 1em 2em;
 }
 
@@ -186,7 +192,6 @@ select option:hover{
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 1px;
     font-weight: 700;
-    color: green;
     text-align: center;
     margin: 3em 0 1em;
 }
@@ -207,6 +212,10 @@ select option:hover{
 .classification{
     background-color: green;
     color: white;
+}
+
+.results{
+    background-color: white;
 }
 
 .event{
