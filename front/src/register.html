@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/register.css">
+        <title>Calculadora</title>
+    </head>
+    <body>
+        <header class="header">
+            <h1 class="title">Calculadora de Juros Compostos</h1>
+            <hr class="line">
+        </header> 
+
+        <main class="main">
+            <section id="section" class="box-register">
+                <p class="title-box">CADASTRO</p>
+
+                <div class="subtitle-input">
+                    <label for="inputName" class="subtitle-box">Nome:</label>
+                    <input type="text" placeholder="Digite seu nome completo" onblur="checkNumberName()" class="input-text" id="inputName" required>
+                    <p class="invalidName" id="invalidName" style="display: none;">Nome inválido</p>
+                </div>
+
+                <div class="subtitle-input">
+                    <label for="inputCell" class="subtitle-box">Celular</label>
+                    <input type="tel" placeholder="Digite seu numero celular" onblur="checkLetterCell()" class="input-text" id="inputCell" required>
+                    <p class="invalidCell" id="invalidCell" style="display: none;">Numero inválido</p>
+                    <p class="invalidCell" id="existCell" style="display: none;">Número já cadastrado</p>
+                </div>
+
+                <div class="subtitle-input">
+                    <label for="inputEmail" class="subtitle-box">E-mail:</label>
+                    <input type="email" placeholder="Digite seu e-mail" onblur="checkEmail()" class="input-text" id="inputEmail" required>
+                    <p class="invalidEmail" id="invalidEmail" style="display: none;">E-mail inválido</p>
+                    <p class="invalidEmail" id="existEmail" style="display: none;">E-mail já cadatrado</p>
+                </div>
+
+                <div class="subtitle-input">
+                    <label for="inputPassword" class="subtitle-box">Criar Senha:</label>
+                    <input type="password" placeholder="Crie uma senha" onblur="checkPassword()" class="input-text" id="inputPassword" required>
+                    <p class="invalidPassword" id="invalidPassword" style="display: none;">Senha inválida</p>
+                </div>
+
+                <div class="subtitle-input">
+                    <label for="inputRepeatPassword" class="subtitle-box">Repita Senha:</label>
+                    <input type="password" placeholder="Repita a senha" onblur="checkRepeatPassword()" class="input-text" id="inputRepeatPassword" required>
+                    <p class="invalidRepeatPassword" id="invalidRepeatPassword" style="display: none;">As senhas não coincidem</p>
+                </div>
+                
+                <div class="buttons">
+                    <button type="submit" checkEmpty() onclick="registerUser()" id="buttonRegister" class="button-register">Cadastrar</button>
+                    <button onclick="redirectToLogin()" class="button-back">Voltar</button>
+                </div>
+            </section>
+        </main>
+
+        <script defer src="js/register.js"></script>
+    </body>
+</html>

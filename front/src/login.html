@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/login.css">
+        <script defer src="js/login.js"></script>
+        <script src="js/index.js"></script>
+        <title>Calculadora</title>
+    </head>
+    <body>
+        <header class="header">
+            <h1 class="title">Calculadora de Juros Compostos</h1>
+            <button onclick="redirectToRegister()" class="button-register">Cadastrar</button>
+            <hr class="line">
+        </header> 
+
+        <main class="main">
+            <section class="box-login">
+                <p class="title-box">LOGIN</p>
+
+                <div class="subtitle-input">
+                    <label for="email" class="subtitle-box">E-mail:</label>
+                    <input type="text" placeholder="Digite seu e-mail" class="input-text" id="inputEmail">
+                </div>
+
+                <div class="subtitle-input">
+                    <label for="password" class="subtitle-box">Senha:</label>
+                    <input type="password" placeholder="Digite sua senha" class="input-text" id="inputPassword">
+                    <p class="invalid-login" id="invalidLogin" style="display: none;">Login inválido!</p>
+                </div>
+
+                <button class="forgot-password">Esqueceu a senha?</button>
+                
+                <div class="buttons">
+                    <button id="buttonLogin" class="button-login">Entrar</button>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
