@@ -1,5 +1,6 @@
 const express = require("express");
 const userRouter = require('./src/routes/user');
+const operationsRouter = require('./src/routes/operations')
 const cors = require('cors');
 require('./config/database');
 
@@ -14,7 +15,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/user", userRouter);
+app.use("/operations", operationsRouter);
 
-app.listen(3002,()=>{
+app.listen(3001,()=>{
     console.log('Servidor foi iniciado!');
 })

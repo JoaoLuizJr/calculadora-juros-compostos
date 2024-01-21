@@ -166,7 +166,7 @@ function registerUser() {
     password: password
   }
 
-  fetch('http://localhost:3002/user/register', {
+  fetch('http://localhost:3001/user/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

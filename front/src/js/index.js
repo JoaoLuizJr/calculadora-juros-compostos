@@ -1,179 +1,89 @@
-const initial = document.getElementById('initialValue');
-const monthly = document.getElementById('monthlyValue');
-const fees = document.getElementById('interestRate');
-const temp = document.getElementById('temp');
-const selectTemp = document.getElementById('selectTemp');
-const period = document.getElementById('period');
-const buttonCalculate = document.getElementById('buttonCalculate');
-const totalGainFees = document.getElementById('totalGainFees');
-const totalOnlyInvest = document.getElementById('totalOnlyInvest');
-const totalInvestFess = document.getElementById('totalInvestFees');
-const sectionInput = document.getElementById('sectionInput');
-const buttonLogin = document.getElementById('buttonLogin');
+const inputEmail = document.getElementById('inputEmail');
+const inputPassword = document.getElementById('inputPassword');
+const login = document.getElementById('buttonLogin');
+const invalidLogin = document.getElementById('invalidLogin');
 
-document.addEventListener('DOMContentLoaded', ()=> {
-    const selectTemp = document.getElementById('selectTemp');
-    const optionMonthly = document.querySelector('#period option[value="months"]');
-    const optionYears = document.querySelector('#period option[value="years"]');   
+function redirectToRegister(){
+    window.location.href = 'register.html'
+}
+
+function redirectToCalculator(){
+    window.location.href = 'calculator.html'
+}
+
+inputEmail.addEventListener('click', ()=>{
+    inputEmail.style.borderBottomColor = 'green';
+    inputEmail.style.color = 'black';
+    inputPassword.style.borderBottomColor = 'green';
+    inputPassword.style.color = 'black';
+    invalidLogin.style.display = 'none'
+})
     
-    if (selectTemp.value === 'yearly') {
-        optionMonthly.style.display = 'none';
+inputPassword.addEventListener('click', ()=>{
+    inputPassword.style.borderBottomColor = 'green';
+    inputPassword.style.color = 'black';
+    inputEmail.style.borderBottomColor = 'green';
+    inputEmail.style.color = 'black';
+    invalidLogin.style.display = 'none'
+})
+
+function statusLogin() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    return isLoggedIn === 'true'; // Convertendo a string 'true' para um valor booleano
+}
+
+function logout() {
+    localStorage.setItem('isLoggedIn', 'false');
+}
+
+function startLogoutTimer() {
+    setTimeout(() => {
+        logout();
+    }, 100000); // 1 minuto = 60,000 milissegundos
+}
+
+login.addEventListener('click', ()=>{
+    const email = inputEmail.value;
+    const password = inputPassword.value;
+
+    if (!email || !password) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+    }
+
+    userData = {
+        email: email,
+        password: password
     }
     
-    selectTemp.addEventListener('change', function() {
-        if (selectTemp.value === 'yearly') {
-            optionMonthly.style.display = 'none';
-            period.value === 'years'
-        } else {
-            optionMonthly.style.display = 'block';
+    fetch('http://localhost:3001/user/login',{
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then((response) => {
+        if (!response.ok) {
+           throw new Error('Login não encontrado')
         }
-        if (selectTemp.value === 'yearly' && optionMonthly.selected) {
-            optionYears.selected = true;
-        }
+
+        return response.json();
+    })
+    .then(data => {
+      alert('Logado com sucesso!');
+      localStorage.setItem('isLoggedIn', 'true');
+      if (statusLogin()) {
+        localStorage.setItem('email', email);
+        redirectToCalculator();
+      }
+    })
+    .catch(error => {
+        inputEmail.style.borderBottomColor = 'red';
+        inputEmail.style.color = 'red';
+        inputPassword.style.borderBottomColor = 'red';
+        inputPassword.style.color = 'red';
+        invalidLogin.style.display = 'block'
     });
-});
-
-startLogoutTimer();
-
-buttonCalculate.disabled = true;
-buttonCalculate.style = "background-color: gray;";
-
-fees.addEventListener('input', validateFields);
-temp.addEventListener('input', validateFields);
-initial.addEventListener('input', validateFields);
- monthly.addEventListener('input', validateFields);
-
-buttonCalculate.addEventListener('click', ()=>{
-    let valueInitial = parseFloat(initial.value);
-    let valueMonthly = parseFloat(monthly.value);
-    let valueFees = parseFloat(fees.value);
-    let valueTemp = parseFloat(temp.value);
-    
-    let total = 0;
-    let totalInvest = 0;
-    let totalFess = 0
-    let depositMonthly = 0;
-    let onlyFeesInitial = 0;
-    let onlyFeesMonthly = 0;
-    let onlyValueMonthly = valueMonthly;
-
-    if (isNaN(valueInitial)){
-        valueInitial = 0;
-    }
-
-    if (isNaN(valueMonthly)) {
-        valueMonthly = 0;
-    }
-
-    if (localStorage.getItem('isLoggedIn') === 'false') {
-        redirectToLogin();
-    }
-
-    if (sectionInput.style.display === 'none') {
-        sectionInput.style.display = 'block';
-    }
-
-    if (selectTemp.value === 'monthly') {
-        if (period.value === 'years') {
-            valueTemp = valueTemp * 12;
-            depositMonthly = valueMonthly * valueTemp;
-            totalInvest = valueInitial + depositMonthly;
-    
-            for(let cont = 0; cont < valueTemp; cont++) {
-                onlyFeesInitial = valueInitial * (valueFees/100);
-                valueInitial = valueInitial + onlyFeesInitial;
-    
-                if (cont > 0) {
-                    onlyFeesMonthly = valueMonthly * (valueFees/100);
-                    valueMonthly = onlyFeesMonthly + onlyValueMonthly + valueMonthly;   
-                }
-    
-                if (isNaN(valueMonthly)) {
-                    valueMonthly = 0;
-                }
-            }   
-            
-            total = valueMonthly + valueInitial;
-            totalFess = total - totalInvest;
-        }else{
-            depositMonthly = valueMonthly * valueTemp;
-            totalInvest = valueInitial + depositMonthly;
-
-            for(let cont = 0; cont < valueTemp; cont++) {
-                onlyFeesInitial = valueInitial * (valueFees/100);
-                valueInitial = valueInitial + onlyFeesInitial;
-
-                if (cont > 0) {
-                    onlyFeesMonthly = valueMonthly * (valueFees/100);
-                    valueMonthly = onlyFeesMonthly + onlyValueMonthly + valueMonthly;     
-                }
-
-                if (isNaN(valueMonthly)) {
-                    valueMonthly = 0;
-                }
-            }
-        }
-
-        total = valueMonthly + valueInitial;
-        totalFess = total - totalInvest;
-
-    }else{
-        valueTemp = valueTemp * 12;
-        depositMonthly = valueMonthly * valueTemp;
-        totalInvest = valueInitial + depositMonthly;
-    
-        for(let cont = 1; cont <= valueTemp; cont++) {
-            cont = cont + 11;
-            
-            onlyFeesInitial = valueInitial * (valueFees/100);
-            onlyFeesMonthly = depositMonthly * (valueFees/100);
-            valueInitial = valueInitial + onlyFeesInitial;
-            depositMonthly = depositMonthly + onlyFeesMonthly;
-        }
-        total = valueInitial + depositMonthly;     
-        totalFess = total - totalInvest; 
-    }
-
-    totalGainFees.textContent =  'R$ '+ totalFess.toFixed(2);
-    totalOnlyInvest.textContent = 'R$ '+ totalInvest.toFixed(2);
-    totalInvestFess.textContent = 'R$ '+ total.toFixed(2);
-});
-
-initial.addEventListener('input', function() {
-    if (this.value < 0) {
-        this.value = ''; 
-    }
-});
-
-monthly.addEventListener('input', function() {
-    if (this.value < 0) {
-        this.value = ''; // Define o valor como vazio se for um número negativo
-    }
-});
-
-temp.addEventListener('input', function() {
-    if (this.value < 0) {
-        this.value = ''; // Define o valor como vazio se for um número negativo
-    }
-});
-
-function validateFields() {
-    if (fees.value !== '' && temp.value > 0) {
-        if (initial.value !== '' || monthly.value !== '') {
-            buttonCalculate.style = "background-color: green;"
-            buttonCalculate.disabled = false;
-        }else{
-            buttonCalculate.style = "background-color: gray;"
-            buttonCalculate.disabled = true;
-        }
-    }else if(fees.value === '' || temp.value <= 0){
-        buttonCalculate.style = "background-color: gray;"
-        buttonCalculate.disabled = true;
-    }
-}
-
-function redirectToLogin() {
-    window.location.href = '/';
-}
-
-
+})

@@ -1,10 +1,27 @@
 const express = require('express');
-
 const router = express.Router();
-
 const User = require('../models/user');
 
-router.get('/', (req, res)=>{ 
+router.post('/accountData', async(req, res)=>{
+    let { email } = req.body;
+
+    try {
+        let user = await User.findOne({ email });
+
+        if (user) {
+            // Se o usuário foi encontrado, retorna os dados
+            res.status(200).json({
+                name: user.name,
+                email: user.email,
+                cell: user.cell 
+            });
+        } else {
+            // Se o usuário não foi encontrado, retorna um status 404
+            res.status(404).json({ mensagem: 'Usuário não encontrado' });
+        }
+    } catch (error) {
+        res.status(500).json({ mensagem: 'Erro interno do servidor', error });
+    }
 });
 
 router.post('/register', async(req, res)=>{
@@ -68,7 +85,31 @@ router.post('/login', async(req, res)=>{
     }
 })
 
-router.put('/', (req, res)=>{});
+router.put('/name', async(req, res)=>{
+
+    const { name, oldName } = req.body;
+
+    try {
+        let result = await User.updateOne({ name: oldName }, { $set: { name } });
+        return res.status(200).json({ message: 'Nome atualizado!' });
+    } catch (error) {
+        return res.status(400).json({ error: 'Erro ao atualizar o nome!' })
+    }
+
+});
+
+router.put('/cell', async(req, res)=>{
+
+    const { cell, oldCell } = req.body;
+
+    try {
+        let result = await User.updateOne({ cell: oldCell }, { $set: { cell } });
+        return res.status(200).json({ message: 'Celular atualizado!' });
+    } catch (error) {
+        return res.status(400).json({ error: 'Erro ao atualizar o celular!' })
+    }
+
+});
 
 router.delete('/', (req, res)=>{});
 

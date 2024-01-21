@@ -1,99 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/index.css">
-    <script defer src="js/index.js"></script>
-    <script src="js/login.js"></script>
-    <title>Calculadora</title>
-</head>
-<body>
-    <header class="header">          
-        
-        <h1 class="title">Calculadora de Juros Compostos</h1>
-        <hr class="line">
-    </header>  
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/index.css">
+        <script defer src="js/index.js"></script>
+        <script src="js/calculator.js"></script>
+        <title>Calculadora</title>
+    </head>
+    <body>
+        <header class="header">
+            <h1 class="title">Calculadora de Juros Compostos</h1>
+            <button onclick="redirectToRegister()" class="button-register">Cadastrar</button>
+            <hr class="line">
+        </header> 
 
-    <main class="main">
-        <section class="section-input">
-            <div class="value">
-                <div class="combo-imput">
-                    <p class="title-input">Valor Inicial</p>
-                    <div class="signal-input">
-                        <p class="signal">R$</p>
-                        <input class="input-text" id="initialValue" type="number" placeholder="0,00">
-                    </div>
+        <main class="main">
+            <section class="box-login">
+                <p class="title-box">LOGIN</p>
+
+                <div class="subtitle-input">
+                    <label for="email" class="subtitle-box">E-mail:</label>
+                    <input type="text" placeholder="Digite seu e-mail" class="input-text" id="inputEmail">
                 </div>
 
-                <div class="combo-imput">
-                    <p class="title-input">Valor Mensal</p>
-                    <div class="signal-input">
-                        <p class="signal">R$</p>
-                        <input class="input-text" id="monthlyValue" type="number" placeholder="0,00">
-                    </div>
+                <div class="subtitle-input">
+                    <label for="password" class="subtitle-box">Senha:</label>
+                    <input type="password" placeholder="Digite sua senha" class="input-text" id="inputPassword">
+                    <p class="invalid-login" id="invalidLogin" style="display: none;">Login inválido!</p>
                 </div>
-            </div>
 
-            <div class="fees-temp">
-                <div class="combo-imput">
-                    <p class="title-input">Taxa de Juros</p>
-                    <div class="signal-input">
-                        <p class="signal-percent">%</p>
-                        <input class="input-text-fees" id="interestRate" type="number" placeholder="0,00">
-                        <select id="selectTemp" class="select" name="temp">
-                            <option value="yearly">Anual</option>
-                            <option value="monthly">Mensal</option>
-                        </select>
-                    </div>
-                </div>
+                <button class="forgot-password">Esqueceu a senha?</button>
                 
-
-                <div class="combo-imput">
-                    <p class="title-input">Periodo</p>
-                    <div class="signal-input">
-                        <input class="input-text-temp" id="temp" type="number" placeholder="0">
-                        <select id="period" class="select" name="temp">
-                            <option value="years">Anos</option>
-                            <option value="months">Meses</option>
-                        </select>
-                    </div> 
+                <div class="buttons">
+                    <button id="buttonLogin" class="button-login">Entrar</button>
                 </div>
-            </div>
-
-            <button id="buttonCalculate" class="button-calculate">Calcular</button>   
-        </section>  
-
-        <section id="sectionInput" style="display: none;" class="section-results">
-            <p id="titleTable" class="title-table">Quanto meu diheiro vai render ?</p>
-            <div class="table">
-                <div class="classification">
-                    <p class="event">Evento</p>
-                    <p class="value-table">Valores</p>
-                </div>
-
-                <hr class="line-table">
-                
-                <div class="results">
-                    <p class="total">Total Investido</p>
-                    <p id= "totalOnlyInvest" class="total-value"></p>
-                </div>
-
-                <hr class="line-table">
-
-                <div class="results">
-                    <p class="total">Total de ganhos em JUROS</p>
-                    <p id= "totalGainFees" class="total-value"></p>
-                </div>
-
-                <hr class="line-table">
-
-                <div class="results">
-                    <p class="text-total">Total</p>
-                    <p id= "totalInvestFees" class="total-all"></p>
-                </div>
-            </div>
-        </section>
-    </main>
-</body>
+            </section>
+        </main>
+    </body>
 </html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/calculator.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script defer src="js/calculator.js"></script>
+    <script src="js/index.js"></script>
+    <title>Calculadora</title>
+</head>
+<body>
+    <header class="header">          
+        <h1 class="title">Calculadora de Juros Compostos</h1>
+        <button id="buttonAccount" class="button-profile">
+            <i class="material-icons profile">account_circle</i>
+        </button>
+    
+        <hr class="line">   
+    </header>  
+
+    <section id="registrationData" style="display: none;" class="registration-data">
+        <div class="div-data">
+            <h1 class="title-registration">Dados Cadastrais</h1>
+            
+            <div class="div-name">
+                <p class="title-name">Nome:</p>
+                <p id="name" class="text-data"></p>
+                <input type="text" id="inputName" style="display: none;" class="input-name">
+                <button id="buttonEditName" class="button-edit">
+                    <i class="material-icons edit" id="iconEditName">edit</i>
+                </button>
+            </div>
+
+            <div class="div-email">
+                <p class="title-email">Email:</p>
+                <p id="email" class="text-data"></p>
+            </div>
+
+            <div class="div-cell">
+                <p class="title-cell">Celular:</p>
+                <p id="cell" class="text-data"></p>
+                <input type="text" id="inputCell" style="display: none;" class="input-cell">
+                <button id="buttonEditCell" class="button-edit">
+                    <i class="material-icons edit" id="iconEditCell">edit</i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="main">
+        <section class="section-input">
+            <div class="value">
+                <div class="combo-imput">
+                    <p class="title-input">Valor Inicial</p>
+                    <div class="signal-input">
+                        <p class="signal">R$</p>
+                        <input class="input-text" id="initialValue" type="number" placeholder="0,00">
+                    </div>
+                </div>
+
+                <div class="combo-imput">
+                    <p class="title-input">Valor Mensal</p>
+                    <div class="signal-input">
+                        <p class="signal">R$</p>
+                        <input class="input-text" id="monthlyValue" type="number" placeholder="0,00">
+                    </div>
+                </div>
+            </div>
+
+            <div class="fees-temp">
+                <div class="combo-imput">
+                    <p class="title-input">Taxa de Juros</p>
+                    <div class="signal-input">
+                        <p class="signal-percent">%</p>
+                        <input class="input-text-fees" id="interestRate" type="number" placeholder="0,00">
+                        <select id="selectTemp" class="select" name="temp">
+                            <option value="yearly">Anual</option>
+                            <option value="monthly">Mensal</option>
+                        </select>
+                    </div>
+                </div>
+                
+
+                <div class="combo-imput">
+                    <p class="title-input">Periodo</p>
+                    <div class="signal-input">
+                        <input class="input-text-temp" id="temp" type="number" placeholder="0">
+                        <select id="period" class="select" name="temp">
+                            <option value="years">Anos</option>
+                            <option value="months">Meses</option>
+                        </select>
+                    </div> 
+                </div>
+            </div>
+
+            <button id="buttonCalculate" class="button-calculate">Calcular</button>   
+        </section>  
+
+        <section id="sectionInput" style="display: none;" class="section-results">
+            <p id="titleTable" class="title-table">Quanto meu diheiro vai render ?</p>
+            <div class="table">
+                <div class="classification">
+                    <p class="event">Evento</p>
+                    <p class="value-table">Valores</p>
+                </div>
+
+                <hr class="line-table">
+                
+                <div class="results">
+                    <p class="total">Total Investido</p>
+                    <p id= "totalOnlyInvest" class="total-value"></p>
+                </div>
+
+                <hr class="line-table">
+
+                <div class="results">
+                    <p class="total">Total de ganhos em JUROS</p>
+                    <p id= "totalGainFees" class="total-value"></p>
+                </div>
+
+                <hr class="line-table">
+
+                <div class="results">
+                    <p class="text-total">Total</p>
+                    <p id= "totalInvestFees" class="total-all"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
