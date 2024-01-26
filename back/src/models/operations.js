@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 
 const operationsSchema = mongoose.Schema({
-    initialValue: {type: Number, required: true},
-    monthlyValue: {type: Number, required: true},
-    fees: {type: Number, required: true},
-    temp: {type: Number, required: true},
+    totalFees: {type: Number, required: true},
+    totalInvest: {type: Number, required: true},
+    total: {type: Number, required: true},
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    access: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Access',
+        require: true
     }
 });
 

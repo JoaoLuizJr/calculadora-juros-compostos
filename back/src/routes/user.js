@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Access = require('../models/access');
+
 
 router.post('/accountData', async(req, res)=>{
     let { email } = req.body;
@@ -72,22 +74,28 @@ router.post('/login', async(req, res)=>{
     let {email, password} = req.body;
 
     try {
-        let login = await User.findOne({email, password});
+        let user = await User.findOne({email, password});
 
-        if (login) {
+        if (user) {
+            let access = await Access.create({
+                date: new Date(),
+                user: user._id,  
+                operations: []  
+            });
+
             return res.status(200).json({ message: 'Usuário encontrado!' });
         } else {
-            return res.status(400).json({ error: 'Usuário não encontrado! Cadastre-se' })
+            return res.status(400).json({ error: 'Usuário não encontrado! Cadastre-se' });
         }
     } catch (error) {
         console.error('Erro ao verificar o Login:', error);
         res.status(500).json({ error: 'Erro interno do servidor.' });
     }
-})
+});
 
 router.put('/name', async(req, res)=>{
 
-    const { name, oldName } = req.body;
+    let { name, oldName } = req.body;
 
     try {
         let result = await User.updateOne({ name: oldName }, { $set: { name } });

@@ -40,7 +40,7 @@ function logout() {
 function startLogoutTimer() {
     setTimeout(() => {
         logout();
-    }, 100000); // 1 minuto = 60,000 milissegundos
+    }, 50000); 
 }
 
 login.addEventListener('click', ()=>{
@@ -72,12 +72,12 @@ login.addEventListener('click', ()=>{
         return response.json();
     })
     .then(data => {
-      alert('Logado com sucesso!');
-      localStorage.setItem('isLoggedIn', 'true');
-      if (statusLogin()) {
-        localStorage.setItem('email', email);
-        redirectToCalculator();
-      }
+        alert('Logado com sucesso!');
+        localStorage.setItem('isLoggedIn', 'true');
+        if (statusLogin()) {
+            localStorage.setItem('email', email);
+            redirectToCalculator();
+        }
     })
     .catch(error => {
         inputEmail.style.borderBottomColor = 'red';

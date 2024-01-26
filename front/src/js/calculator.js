@@ -122,7 +122,7 @@ inputCell.addEventListener('blur', async()=>{
         })
         if (response.ok) {
             fieldCell.innerHTML = inputCell.value;
-        } else {
+        } else { 
             console.error('Erro na requisição POST:', response.status);
         }
     } catch (error) {
@@ -168,7 +168,7 @@ temp.addEventListener('input', validateFields);
 initial.addEventListener('input', validateFields);
 monthly.addEventListener('input', validateFields);
 
-buttonCalculate.addEventListener('click', ()=>{
+buttonCalculate.addEventListener('click', async()=>{
     let valueInitial = parseFloat(initial.value);
     let valueMonthly = parseFloat(monthly.value);
     let valueFees = parseFloat(fees.value);
@@ -188,10 +188,6 @@ buttonCalculate.addEventListener('click', ()=>{
 
     if (isNaN(valueMonthly)) {
         valueMonthly = 0;
-    }
-
-    if (localStorage.getItem('isLoggedIn') === 'false') {
-        redirectToIndex();
     }
 
     if (sectionInput.style.display === 'none') {
@@ -262,6 +258,39 @@ buttonCalculate.addEventListener('click', ()=>{
     totalGainFees.textContent =  'R$ '+ totalFess.toFixed(2);
     totalOnlyInvest.textContent = 'R$ '+ totalInvest.toFixed(2);
     totalInvestFess.textContent = 'R$ '+ total.toFixed(2);
+
+    const resultsFees = totalFess.toFixed(2);
+    const resultsInvest = totalInvest.toFixed(2);
+    const resultsInvestFees = total.toFixed(2);
+
+
+    userOperations = {
+        resultsInvest: resultsInvest,
+        resultsFees: resultsFees,
+        resultsInvestFees: resultsInvestFees,
+        email: email  
+    }
+
+    if (localStorage.getItem('isLoggedIn') === 'false') {
+        redirectToIndex();
+    }else{
+        try {
+            const response = await fetch('http://localhost:3001/operations/calculate',{
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userOperations)
+            })
+            if (response.ok) {
+                console.log('');
+            } else {
+                console.error('Erro na requisição POST:', response.status);
+            }
+        } catch (error) {
+            console.error('Erro durante a requisição POST:', error);
+        }
+    }
 });
 
 initial.addEventListener('input', function() {
