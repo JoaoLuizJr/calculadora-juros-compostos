@@ -103,7 +103,6 @@ router.put('/name', async(req, res)=>{
     } catch (error) {
         return res.status(400).json({ error: 'Erro ao atualizar o nome!' })
     }
-
 });
 
 router.put('/cell', async(req, res)=>{

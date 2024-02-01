@@ -72,7 +72,6 @@ login.addEventListener('click', ()=>{
         return response.json();
     })
     .then(data => {
-        alert('Logado com sucesso!');
         localStorage.setItem('isLoggedIn', 'true');
         if (statusLogin()) {
             localStorage.setItem('email', email);

@@ -20,29 +20,46 @@
     </header>  
 
     <section id="registrationData" style="display: none;" class="registration-data">
-        <div class="div-data">
-            <h1 class="title-registration">Dados Cadastrais</h1>
+        <div class="div-tabs">
+            <div class="div-data">
+                <div id="tabs" class="tabs">
+                    <button class="tabs-registration" id="buttonPerfil">Perfil</button>
+
+                    <button class="tabs-operations" id="buttonOperations">Operações</button>
+                </div>
+                
+                <div id="divData" class="data">
+                    <div class="div-name">
+                        <p class="title-name">Nome:</p>
+                        <p id="name" class="text-data"></p>
+                        <input type="text" id="inputName" style="display: none;" class="input-name">
+                        <button id="buttonEditName" class="button-edit">
+                            <i class="material-icons edit" id="iconEditName">edit</i>
+                        </button>
+                    </div>
+    
+                    <div class="div-email">
+                        <p class="title-email">Email:</p>
+                        <p id="email" class="text-data"></p>
+                    </div>
+    
+                    <div class="div-cell">
+                        <p class="title-cell">Celular:</p>
+                        <p id="cell" class="text-data"></p>
+                        <input type="text" id="inputCell" style="display: none;" class="input-cell">
+                        <button id="buttonEditCell" class="button-edit">
+                            <i class="material-icons edit" id="iconEditCell">edit</i>
+                        </button>
+                    </div>
+                </div>  
+            </div>
             
-            <div class="div-name">
-                <p class="title-name">Nome:</p>
-                <p id="name" class="text-data"></p>
-                <input type="text" id="inputName" style="display: none;" class="input-name">
-                <button id="buttonEditName" class="button-edit">
-                    <i class="material-icons edit" id="iconEditName">edit</i>
-                </button>
-            </div>
 
-            <div class="div-email">
-                <p class="title-email">Email:</p>
-                <p id="email" class="text-data"></p>
-            </div>
-
-            <div class="div-cell">
-                <p class="title-cell">Celular:</p>
-                <p id="cell" class="text-data"></p>
-                <input type="text" id="inputCell" style="display: none;" class="input-cell">
-                <button id="buttonEditCell" class="button-edit">
-                    <i class="material-icons edit" id="iconEditCell">edit</i>
+            <div id="divOperations" class="div-operations">
+                <label for="accesses" class="title-access">Seus acessos:</label>
+                <select id="accesses" name="access" class="select-access"></select>
+                <button id="buttonConsultOperations" class="button-consult">
+                    Consultar
                 </button>
             </div>
         </div>

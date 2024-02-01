@@ -46,31 +46,117 @@ body{
     height: 2px;
 }
 
+.tabs{
+    display: flex;
+    justify-content: space-between;
+}
+
 .registration-data{
     position: absolute;
     top: 4.2em;
     right: 20px;
     width: 27em;
-    height: 8.5em;
+    height: 7.7em;
     border: 3px solid green;
     border-radius: 14px;
     background-color: white;
-    padding: 10px;
 }
 
 .div-data{
     display: flex;
     flex-direction: column;
-    gap: 11px;
 }
 
-.title-registration{
+.data{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+}
+
+.tabs-registration{
+    font-size: 16px;
+    cursor: pointer;
+    background-color: transparent;
+    margin-left: 5em;
+    border-bottom: 1px solid black;
+    padding: 7px 0 3px;
     text-align: center;
-    color: green;
+    color: black;
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 1px;
     font-weight: 700;
-    margin-bottom: 6px;
+}
+
+.click{
+    border-bottom: 1px solid green !important;
+    color: green !important;
+    font-size: 17px !important;
+    margin-left: 5em !important;
+}
+
+.tabs-operations{
+    font-size: 16px;
+    cursor: pointer;
+    background-color: transparent;
+    margin-right: 5em;
+    border-bottom: 1px solid black;
+    padding: 7px 0 3px;    
+    text-align: center;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.div-operations{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.title-access{
+    padding: 10px 5px 15px 0;
+    color: green;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.select-access{
+    text-align: center;
+    margin: 10px auto;
+    width: 17em;
+    padding: 1px;
+    background-color: white;
+    border: 2px solid green;
+    color: gray;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.select-access option {
+    background-color: white;
+    color: green;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.button-consult{
+    margin-top: 6px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 7px;
+    background-color: green;
+    color: white;
 }
 
 .div-name,
@@ -79,12 +165,13 @@ body{
     align-items: center;
     position: relative;
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
 
 .title-name,
 .title-email,
-.title-cell{
+.title-cell,
+.title-operations{
     color: green;
     font-size: 14px;
     font-family: 'Courier New', Courier, monospace;

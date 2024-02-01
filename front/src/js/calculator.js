@@ -23,10 +23,50 @@ const buttonEditName = document.getElementById('buttonEditName');
 const buttonEditCell = document.getElementById('buttonEditCell');
 const iconEditName = document.getElementById('iconEditName');
 const iconEditCell = document.getElementById('iconEditCell');
+const buttonConsult = document.getElementById('buttonConsultOperations');
+const buttonPerfil = document.getElementById('buttonPerfil');
+const buttonOperations = document.getElementById('buttonOperations');
+const divOperations = document.getElementById('divOperations');
+const divData = document.getElementById('divData')
+const selectAccess = document.getElementById('accesses');
 
 const email = localStorage.getItem('email');
 
+document.addEventListener('DOMContentLoaded', ()=>{
+    dataLogin = {
+        email: email
+    }
+
+     fetch('http://localhost:3001/operations/getAccesses',{
+        method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataLogin) 
+     })
+     .then(response => response.json())
+        .then(accesses => {
+            accesses.forEach(access => {
+                const option = document.createElement('option');
+                option.value = access._id;
+                option.textContent = access.date;
+                selectAccess.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Erro ao obter acessos:', error));
+});
+
+
+
 buttonAccount.addEventListener('click', async ()=>{
+    // if (localStorage.getItem('isLoggedIn') === 'false') {
+    //     redirectToIndex();
+    // }
+
+    buttonPerfil.classList.add('click');
+        
+    divOperations.style.display = 'none';
+
     if (registrationData.style.display === 'none') {
         registrationData.style.display = 'block';
     }else{
@@ -141,6 +181,64 @@ buttonEditCell.addEventListener('click', ()=>{
         fieldCell.style.display = 'block';
     }
 });
+
+buttonPerfil.addEventListener('click', ()=>{
+    if (buttonPerfil.classList.contains('click')) {
+        buttonPerfil.classList.remove('click');
+        buttonOperations.classList.add('click');
+        divOperations.style.display = 'block';
+        divData.style.display = 'none';
+    }else{
+        buttonPerfil.classList.add('click');
+        buttonOperations.classList.remove('click');
+        divOperations.style.display = 'none';
+        divData.style.display = 'block';
+    }
+})
+
+buttonOperations.addEventListener('click', ()=>{
+    buttonPerfil.classList.remove('click');
+
+    if (!buttonOperations.classList.contains('click')) {
+        buttonOperations.classList.add('click');
+        buttonPerfil.classList.remove('click');
+        divOperations.style.display = 'block';
+        divData.style.display = 'none';
+    }else{
+        buttonOperations.classList.remove('click');
+        buttonPerfil.classList.add('click');
+        divOperations.style.display = 'none';
+        divData.style.display = 'block';
+    }
+})
+
+buttonConsult.addEventListener('click', async()=>{
+    const valueSelect = selectAccess.value;
+    dataAccess = {
+        accessId: valueSelect
+    }
+
+    try {
+        const response = await fetch('http://localhost:3001/operations/consultOperations',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataAccess)
+    })
+
+    if (response.ok) {
+        const dataOperation = await response.json();
+
+        console.log(dataOperation);
+    } else {
+        console.error('Erro na requisição POST:', response.status);
+    }
+
+    } catch (error) {
+        console.error('Erro durante a requisição POST:', error);
+    }
+})
 
 selectTemp.addEventListener('change', function() {
     if (selectTemp.value === 'yearly') {
@@ -328,6 +426,10 @@ function validateFields() {
 
 function redirectToIndex() {
     window.location.href = '/';
+}
+
+function redirectToOperations() {
+    window.location.href = 'operations.html';
 }
 
 
