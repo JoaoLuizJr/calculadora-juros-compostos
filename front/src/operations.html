@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/operations.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script defer src="js/operations.js"></script>
+        <script src="js/calculator.js"></script>
+        <script src="js/index.js"></script>
+        <title>Calculadora</title>
+    </head>
+<body>
+    <header class="header">
+        <h1 class="title">Calculadora de Juros Compostos</h1>
+        <button class="button-email" id="buttonEmail">
+            <i class="material-icons email">forward_to_inbox</i>
+        </button>
+        
+        <button class="button-close" id="buttonClose">
+            <i class="material-icons close">close</i>
+        </button>
+        <hr class="line">
+    </header>
+    <main>
+        <p id="responseEmail" class="response-email"></p>
+        <section id="sectionResults" class="section-results">
+        </section>
+
+        <p id="notOperations" style="display: none;" class="not-operations">Não existe nehuma operação neste Acesso :(</p>
+    </main>
+</body>
+</html>

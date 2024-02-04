@@ -447,7 +447,83 @@ select option:hover{
 @media screen and (max-width: 600px){
     
     .title{
-        font-size: 25px;
+        font-size: 22px;
+    }
+
+    .button-profile,
+    .button-edit{
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    .profile{
+        right: 3%;
+        top: 30%;
+        transform: scale(1.8);
+    }
+
+    .registration-data{
+        top: 4.5em;
+        right: 10px;
+        width: 23em;
+        height: 8.5em;
+    }
+
+    .tabs{
+        margin-bottom:10px;
+    }
+
+    .tabs-registration{
+        font-size: 14px;
+    }
+
+    .click{
+        font-size: 17px !important;
+    }
+
+    .tabs-operations{
+        font-size: 14px;
+        margin-right: 5.5em;
+    }
+
+    .title-access{
+        font-size: 14px;
+        padding: 0 1em;
+    }
+
+    .select-access{
+        width: 16em;
+        padding: 0px;
+    }
+
+    .select-access option {
+        font-size: 12px;
+    }
+
+    .button-consult{
+        margin: 2px 1em;
+    }
+
+    .div-name,
+    .div-email,
+    .div-cell{
+        margin-bottom: 4px;
+    }
+
+    .title-name,
+    .title-email,
+    .title-cell,
+    .title-operations{
+        font-size: 12px;
+    }
+
+    .text-data{
+        font-size: 11px;
+    }
+
+    .input-name,
+    .input-cell{
+        font-size: 11px;
     }
     
     .section-input{

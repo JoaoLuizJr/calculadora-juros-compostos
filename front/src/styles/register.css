@@ -136,3 +136,14 @@ input:focus {
     padding: 4px 2.5em;
     cursor: pointer;
 }
+
+@media screen and (max-width: 600px){
+    
+    .title{
+        font-size: 22px;
+    }
+
+    .title-box{
+        font-size: 25px;
+    }
+}

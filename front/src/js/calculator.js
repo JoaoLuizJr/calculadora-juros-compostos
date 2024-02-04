@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
      })
      .then(response => response.json())
         .then(accesses => {
+            // Ordenar acessos em ordem decrescente com base na data
+            accesses.sort((a, b) => new Date(b.date) - new Date(a.date));
+
             accesses.forEach(access => {
                 const option = document.createElement('option');
                 option.value = access._id;
@@ -56,12 +59,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
         .catch(error => console.error('Erro ao obter acessos:', error));
 });
 
-
+startLogoutTimer();
 
 buttonAccount.addEventListener('click', async ()=>{
-    // if (localStorage.getItem('isLoggedIn') === 'false') {
-    //     redirectToIndex();
-    // }
+    if (localStorage.getItem('isLoggedIn') === 'false') {
+        redirectToIndex();
+    }
 
     buttonPerfil.classList.add('click');
         
@@ -213,6 +216,10 @@ buttonOperations.addEventListener('click', ()=>{
 })
 
 buttonConsult.addEventListener('click', async()=>{
+    if (localStorage.getItem('isLoggedIn') === 'false') {
+        redirectToIndex();
+    }
+    
     const valueSelect = selectAccess.value;
     dataAccess = {
         accessId: valueSelect
@@ -229,8 +236,9 @@ buttonConsult.addEventListener('click', async()=>{
 
     if (response.ok) {
         const dataOperation = await response.json();
-
-        console.log(dataOperation);
+        let operationString = JSON.stringify(dataOperation);
+        localStorage.setItem('operations', operationString);
+        redirectToOperations();
     } else {
         console.error('Erro na requisição POST:', response.status);
     }
@@ -256,8 +264,6 @@ if (selectTemp.value === 'yearly') {
     optionMonthly.style.display = 'none';
 }
 
-startLogoutTimer();
-
 buttonCalculate.disabled = true;
 buttonCalculate.style = "background-color: gray;";
 
@@ -279,7 +285,32 @@ buttonCalculate.addEventListener('click', async()=>{
     let onlyFeesInitial = 0;
     let onlyFeesMonthly = 0;
     let onlyValueMonthly = valueMonthly;
+    let percentageFees = ''
+    let resultsTemp = ''
 
+    if (selectTemp.value === 'yearly') {
+        percentageFees = valueFees + '% ' + 'ao ano';
+    } else {
+        percentageFees = valueFees + '% ' + 'ao mês';
+    }
+
+    if (valueTemp > 1) {
+        if (period.value === 'years') {
+            resultsTemp = valueTemp + ' anos';
+        } else{
+            resultsTemp = valueTemp + ' meses';
+        }   
+    } else{
+        if (period.value === 'years') {
+            resultsTemp = valueTemp + ' ano';
+        } else {
+            resultsTemp = valueTemp + ' mês';
+        }
+    }
+
+    const resultsInitial = 'R$ '+ valueInitial;
+    const resultsMonthly = 'R$ '+ valueMonthly;
+    
     if (isNaN(valueInitial)){
         valueInitial = 0;
     }
@@ -357,12 +388,15 @@ buttonCalculate.addEventListener('click', async()=>{
     totalOnlyInvest.textContent = 'R$ '+ totalInvest.toFixed(2);
     totalInvestFess.textContent = 'R$ '+ total.toFixed(2);
 
-    const resultsFees = totalFess.toFixed(2);
-    const resultsInvest = totalInvest.toFixed(2);
-    const resultsInvestFees = total.toFixed(2);
-
+    const resultsFees = 'R$ ' + totalFess.toFixed(2);
+    const resultsInvest = 'R$ ' + totalInvest.toFixed(2);
+    const resultsInvestFees = 'R$ ' + total.toFixed(2);
 
     userOperations = {
+        resultsInitial: resultsInitial,
+        resultsMonthly: resultsMonthly,
+        percentageFees: percentageFees,
+        resultsTemp: resultsTemp,
         resultsInvest: resultsInvest,
         resultsFees: resultsFees,
         resultsInvestFees: resultsInvestFees,
@@ -372,23 +406,19 @@ buttonCalculate.addEventListener('click', async()=>{
     if (localStorage.getItem('isLoggedIn') === 'false') {
         redirectToIndex();
     }else{
-        try {
-            const response = await fetch('http://localhost:3001/operations/calculate',{
+            fetch('http://localhost:3001/operations/calculate',{
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(userOperations)
             })
-            if (response.ok) {
-                console.log('');
-            } else {
-                console.error('Erro na requisição POST:', response.status);
-            }
-        } catch (error) {
-            console.error('Erro durante a requisição POST:', error);
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => console.error('Erro ao calcular:', error));
         }
-    }
 });
 
 initial.addEventListener('input', function() {

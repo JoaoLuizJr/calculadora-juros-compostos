@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 
 const operationsSchema = mongoose.Schema({
-    totalFees: {type: Number, required: true},
-    totalInvest: {type: Number, required: true},
-    total: {type: Number, required: true},
+    initial: {type: String, required: true},
+    monthly: {type: String, required: true},
+    fees: {type: String, required: true},
+    temp: {type: String, required: true},
+    totalFees: {type: String, required: true},
+    totalInvest: {type: String, required: true},
+    total: {type: String, required: true},
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

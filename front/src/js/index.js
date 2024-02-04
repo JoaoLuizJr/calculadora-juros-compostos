@@ -40,7 +40,7 @@ function logout() {
 function startLogoutTimer() {
     setTimeout(() => {
         logout();
-    }, 50000); 
+    }, 600000); 
 }
 
 login.addEventListener('click', ()=>{

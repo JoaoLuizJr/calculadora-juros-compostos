@@ -141,3 +141,25 @@ input:focus {
     padding: 10px 5em;
     cursor: pointer;
 }
+
+@media screen and (max-width: 600px){
+    
+    .title{
+        font-size: 22px;
+    }
+
+    .button-register{
+        right: 3%;
+        top: 11%;
+        font-size: 14px;
+        padding: 7px 3.7em;
+    }
+
+    .box-login{
+        margin: 15% auto;
+    }
+
+    .title-box{
+        font-size: 25px;
+    }
+}
