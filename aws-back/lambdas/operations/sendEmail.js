@@ -1,85 +1,15 @@
-const express = require('express');
+const AWS = require('aws-sdk');
 const nodemailer = require('nodemailer');
 
-const Operations = require('../models/operations');
-const User = require('../models/user')
-const Access = require('../models/access');
-
-const router = express.Router();
-
-router.get('/getAccesses', async(req,res)=>{
-    let{email} = req.query
-
-    try {
-        let user = await User.findOne({ email });
-        let accesses  = await Access.find({user: user}).sort({data: -1})
-
-        res.json(accesses);
-    } catch (error) {
-        console.error('Erro ao obter acessos:', error);
-        res.status(500).json({ error: 'Erro interno do servidor.' });
-    }
-})
-
-router.post('/calculate', async (req, res) => {
-    let { email, resultsInvest, resultsFees, resultsInvestFees, resultsInitial, resultsMonthly, percentageFees, resultsTemp,} = req.body;
-
-    try {
-        let user = await User.findOne({ email });
-
-        if (user) {
-            // Encontre um documento Access relacionado ao usuário
-            let access = await Access.findOne({ user: user._id }).sort({ date: -1 }).limit(1);
-
-            if (access) {
-                // Aqui você pode acessar o ID do documento Access
-                let accessId = access._id;
-
-                // Agora, você pode usá-lo conforme necessário
-                let operation = await Operations.create({
-                    initial: resultsInitial,
-                    monthly: resultsMonthly,
-                    fees: percentageFees,
-                    temp: resultsTemp,
-                    totalInvest: resultsInvest,
-                    totalFees: resultsFees,
-                    total: resultsInvestFees,
-                    user: user._id,
-                    access: accessId
-                });
-
-                return res.status(200).json({ message: 'Operação realizada' });
-            } else {
-                return res.status(400).json({ error: 'Documento Access não encontrado para o usuário' });
-            }
-        } else {
-            return res.status(400).json({ error: 'Usuário não encontrado' });
-        }
-    } catch (error) {
-        console.error('Erro ao realizar a operação:', error);
-        res.status(500).json({ error: 'Erro interno do servidor.', details: error.message });
-    }
+AWS.config.update({ region: 'us-east-1' });
+const DynamoDB = new AWS.DynamoDB.DocumentClient({
+    accessKeyId: "AKIA6BUH7KBCZZA6QDPY",
+    secretAccessKey: "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"
 });
 
-router.get('/consultOperations', async(req, res)=>{
-    let {accessId} = req.query;
-
-    try {
-        let operation = await Operations.find({access: accessId}).sort({data: -1});
-
-        if (operation) {
-            res.json(operation);
-        } else {
-            res.status(404).json({ mensagem: 'Não existe operações' });
-        }
-    } catch (error) {
-        console.error('Erro ao realizar a operação:', error);
-        res.status(500).json({ error: 'Erro interno do servidor.', details: error.message });
-    }
-})
-
-router.post('/send-email', async (req, res) => {
-    const { to, subject, body } = req.body;
+//exports.handler = async (event) => {
+const handler = async (event) => {
+    const { to, subject, body } = JSON.parse(event.body);
 
     try {
         // Obter operações do corpo do e-mail (json)
@@ -159,7 +89,7 @@ router.post('/send-email', async (req, res) => {
                 pass: 'vekd mwgi cecz qjcq'
             }
         });
-        
+
         // Definir opções de envio
         const mailOptions = {
             from: 'calculadoradejuroscompostos@gmail.com',
@@ -181,11 +111,42 @@ router.post('/send-email', async (req, res) => {
         await transporter.sendMail(mailOptions);
         console.log('E-mail enviado!');
 
-        res.status(200).json({ message: 'E-mail enviado com sucesso!' });
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: 'E-mail enviado com sucesso!' })
+        };
     } catch (error) {
         console.error('Erro ao enviar e-mail:', error);
-        res.status(500).json({ error: 'Erro interno do servidor.' });
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Erro interno do servidor.' })
+        };
     }
-});
+};
 
-module.exports = router;
+handler({
+    body: JSON.stringify({
+        to: "giulliaaiko14@gmail.com",
+        subject: "Suas operações com muito amor. Glatinho S2. TE AMOOOO",
+        body: JSON.stringify([
+            {
+                initial: 5000,
+                monthly: 500,
+                fees: "1% ao mês",
+                temp: "3 anos",
+                totalInvest: 23000,
+                totalFees: 5692.28,
+                total: 28692.28
+            },
+            {
+                initial: 5000,
+                monthly: 400,
+                fees: "1% ao mês",
+                temp: "3 anos",
+                totalInvest: 19400,
+                totalFees: 4984.6,
+                total: 24384.6
+            }
+        ])
+    })
+}).then(a => {console.log(a);}).catch(b => {console.log(b);});

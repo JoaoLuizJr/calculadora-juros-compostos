@@ -51,18 +51,12 @@ login.addEventListener('click', ()=>{
         alert('Por favor, preencha todos os campos.');
         return;
     }
-
-    userData = {
-        email: email,
-        password: password
-    }
     
-    fetch('http://localhost:3001/user/login',{
-        method: 'POST',
+    fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/user/login?email=' + email + '&password=' + password,{
+        method: 'GET',
         headers: {
         'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userData)
     })
     .then((response) => {
         if (!response.ok) {

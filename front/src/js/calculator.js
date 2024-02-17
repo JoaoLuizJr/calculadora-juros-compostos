@@ -33,16 +33,11 @@ const selectAccess = document.getElementById('accesses');
 const email = localStorage.getItem('email');
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    dataLogin = {
-        email: email
-    }
-
-     fetch('http://localhost:3001/operations/getAccesses',{
-        method: 'POST',
+     fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/operations/getAccesses?email=' + email,{
+        method: 'GET',
             headers: {
             'Content-Type': 'application/json'
             },
-            body: JSON.stringify(dataLogin) 
      })
      .then(response => response.json())
         .then(accesses => {
@@ -76,17 +71,12 @@ buttonAccount.addEventListener('click', async ()=>{
         registrationData.style.display = 'none';
     }
 
-    dataLogin = {
-        email: email 
-    }
-
     try {
-        const response = await fetch('http://localhost:3001/user/accountData', {
-            method: 'POST',
+        const response = await fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/user/accountData?email=' + email, {
+            method: 'GET',
             headers: {
             'Content-Type': 'application/json'
             },
-            body: JSON.stringify(dataLogin)
         })
 
         if (response.ok) {
@@ -119,16 +109,15 @@ buttonEditName.addEventListener('click', ()=>{
 });
 
 inputName.addEventListener('blur', async()=>{
-    const oldName = fieldName.innerHTML;
     const newName = inputName.value;
 
     dataName = {
-        name: newName,
-        oldName: oldName
+        newName: newName,
+        email: email
     }
 
     try {
-        const response = await fetch('http://localhost:3001/user/name',{
+        const response = await fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/user/name',{
             method: 'PUT',
             headers:{
                 'Content-Type': 'application/json'
@@ -147,16 +136,15 @@ inputName.addEventListener('blur', async()=>{
 });
 
 inputCell.addEventListener('blur', async()=>{
-    const oldCell = fieldCell.innerHTML;
     const newCell = inputCell.value;
 
     dataCell = {
-        cell: newCell,
-        oldCell: oldCell
+        newCell: newCell,
+        email: email
     }
 
     try {
-        const response = await fetch('http://localhost:3001/user/cell',{
+        const response = await fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/user/cell',{
             method: 'PUT',
             headers:{
                 'Content-Type': 'application/json'
@@ -221,17 +209,13 @@ buttonConsult.addEventListener('click', async()=>{
     }
     
     const valueSelect = selectAccess.value;
-    dataAccess = {
-        accessId: valueSelect
-    }
 
     try {
-        const response = await fetch('http://localhost:3001/operations/consultOperations',{
-        method: 'POST',
+        const response = await fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/operations/consultOperations?accessId=' + valueSelect,{
+        method: 'GET',
         headers:{
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(dataAccess)
     })
 
     if (response.ok) {
@@ -406,7 +390,7 @@ buttonCalculate.addEventListener('click', async()=>{
     if (localStorage.getItem('isLoggedIn') === 'false') {
         redirectToIndex();
     }else{
-            fetch('http://localhost:3001/operations/calculate',{
+            fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/operations/calculate',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -415,7 +399,6 @@ buttonCalculate.addEventListener('click', async()=>{
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
             })
             .catch(error => console.error('Erro ao calcular:', error));
         }

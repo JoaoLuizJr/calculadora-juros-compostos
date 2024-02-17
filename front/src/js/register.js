@@ -68,12 +68,11 @@ function checkLetterCell() {
     invalidCell.style.display = "none";
   }  
 
-  fetch('http://localhost:3002/user/checkCell', {
-  method: 'POST',
+  fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/user/checkCell?cell=' + cell, {
+  method: 'GET',
   headers:{
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({cell})
   })
   .then((response) =>{
     if (!response.ok) {
@@ -82,7 +81,6 @@ function checkLetterCell() {
     return response.json();
   })
   .then((data) => {
-    console.log(data);
     // Você pode adicionar aqui qualquer lógica adicional que desejar para um email válido
   })
   .catch((error) => {
@@ -95,6 +93,9 @@ function checkLetterCell() {
 async function checkEmail() {
   const email = inputEmail.value;
 
+  inputEmail.style.borderBottomColor = 'green';
+  existEmail.style.display = 'none';
+
   if (/^[^\s@]+@[^\s@]*$/.test(inputEmail.value) && /\.[a-zA-Z]/.test(inputEmail.value) && !/@\.com/.test(inputEmail.value) && !/\s/.test(inputEmail.value)) {
     inputEmail.style.borderBottomColor = "green";
     invalidEmail.style.display = "none";
@@ -106,12 +107,11 @@ async function checkEmail() {
     invalidEmail.style.display = "block"
   }
 
-  fetch('http://localhost:3002/user/checkEmail', {
-  method: 'POST',
+  fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/user/checkEmail?email=' + email, {
+  method: 'GET',
   headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({email})
   })
   .then((response) => {
     if (!response.ok) {
@@ -120,7 +120,6 @@ async function checkEmail() {
     return response.json();
   })
   .then((data) => {
-    console.log(data);
     // Você pode adicionar aqui qualquer lógica adicional que desejar para um email válido
   })
   .catch((error) => {
@@ -166,7 +165,7 @@ function registerUser() {
     password: password
   }
 
-  fetch('http://localhost:3001/user/register', {
+  fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/user/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -175,8 +174,6 @@ function registerUser() {
   })
   .then(response => response.json())
   .then(data => {
-      console.log(data);
-      alert('Usuário criado com sucesso!');
       redirectToLogin();
   })
   .catch(error => {

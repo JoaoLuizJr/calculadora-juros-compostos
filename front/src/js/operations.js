@@ -19,11 +19,12 @@ function redirectToCalculator() {
 document.addEventListener('DOMContentLoaded', ()=>{
     responseEmail.style.display = 'none';
 
-    if (operations.length === 0) {
+    console.log(operations);
+    if (operations.Count === 0) {
         notOperations.style.display = 'block';
         buttonEmail.disabled = true;
     } else {
-        operations.forEach(operation => {
+        operations.Items.forEach(operation => {
             const newCard = document.createElement('sectionResults');
             newCard.innerHTML = `
                 <div class="table">
@@ -111,10 +112,10 @@ function sendEmail() {
     dataLogin = {
         to: storeEmail,
         subject: 'Suas Operações:' ,
-        body: storedOperations
+        body: operations.Items
     }
 
-    fetch('http://localhost:3001/operations/send-email',{  
+    fetch('https://1wwt71fga3.execute-api.us-east-1.amazonaws.com/calculator-dev/operations/send-email',{  
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

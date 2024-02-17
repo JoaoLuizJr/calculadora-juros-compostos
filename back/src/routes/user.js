@@ -4,8 +4,8 @@ const User = require('../models/user');
 const Access = require('../models/access');
 
 
-router.post('/accountData', async(req, res)=>{
-    let { email } = req.body;
+router.get('/accountData', async(req, res)=>{
+    let { email } = req.query;
 
     try {
         let user = await User.findOne({ email });
@@ -26,19 +26,8 @@ router.post('/accountData', async(req, res)=>{
     }
 });
 
-router.post('/register', async(req, res)=>{
-    let { name, cell, email, password } = req.body;  
-
-   try {
-    let user = await User.create({ name, cell, email, password });
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(422).json(error)
-    }  
-});
-
-router.post('/checkEmail', async(req, res) =>{
-    let {email} = req.body;
+router.get('/checkEmail', async(req, res) =>{
+    let {email} = req.query;
 
     try {
         let checkEmail = await User.findOne({email});
@@ -53,8 +42,8 @@ router.post('/checkEmail', async(req, res) =>{
     }
 })
 
-router.post('/checkCell', async(req, res)=>{
-    let {cell} = req.body;
+router.get('/checkCell', async(req, res)=>{
+    let {cell} = req.query;
 
     try {
         let checkCell = await User.findOne({cell});
@@ -69,6 +58,17 @@ router.post('/checkCell', async(req, res)=>{
         res.status(500).json({ error: 'Erro interno do servidor.' });
     }
 })
+
+router.post('/register', async(req, res)=>{
+    let { name, cell, email, password } = req.body;  
+
+   try {
+    let user = await User.create({ name, cell, email, password });
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(422).json(error)
+    }  
+});
 
 router.post('/login', async(req, res)=>{
     let {email, password} = req.body;
