@@ -60,6 +60,9 @@ function checkNumberName() {
 function checkLetterCell() {
   const cell = inputCell.value;
 
+  inputCell.style.borderBottomColor = 'green';
+  existCell.style.display = 'none';
+
   if (/[a-zA-Z]/.test(inputCell.value) || /\s/.test(inputCell.value)){
     inputCell.style.borderBottomColor = "red";
     invalidCell.style.display = "block"
